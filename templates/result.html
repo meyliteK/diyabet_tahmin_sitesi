@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Diabetes Prediction Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        .result {
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .positive {
+            color: white;
+            background-color: #dc3545;
+        }
+
+        .negative {
+            color: white;
+            background-color: #28a745;
+        }
+
+        .info {
+            text-align: left;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .info h3 {
+            color: #343a40;
+        }
+
+        .info p {
+            margin-bottom: 10px;
+        }
+
+        .mhrs-link {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .mhrs-link:hover {
+            background-color: #0056b3;
+        }
+
+        .mhrs-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        img.scatter-plot {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #6c757d;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .back-link:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Prediction Result</h2>
+        <!-- Flask'tan gelen is_diabetic değişkenine göre dinamik içerik -->
+        {% if is_diabetic %}
+            <div class="result positive">Diyabet Hastası Olabilirsiniz</div>
+            <div class="info">
+                <h3>Diyabet Hakkında</h3>
+                <p><strong>Belirtiler:</strong> Aşırı susuzluk, sık idrara çıkma, aşırı açlık, açıklanamayan kilo kaybı, yorgunluk, bulanık görme, yavaş iyileşen yaralar ve sık enfeksiyonlar.</p>
+                <p><strong>Tedavi:</strong> Sağlıklı beslenme, düzenli fiziksel aktivite, kilo kontrolü ve gerektiğinde diyabet ilaçları veya insülin tedavisi. Kan şekeri düzeylerinin düzenli izlenmesi önemlidir.</p>
+                <p><strong>Öneri:</strong> Eğer belirtileriniz varsa, bir sağlık uzmanına danışarak kesin tanı ve tedavi planı alın.</p>
+                <!-- MHRS Yönlendirme Linki -->
+                <a href="https://www.mhrs.gov.tr/" target="_blank" class="mhrs-link">
+                    <img src="{{ url_for('static', filename='mhrs.png') }}" alt="MHRS" class="mhrs-icon">
+                    MHRS'den Randevu Alın
+                </a>
+            </div>
+        {% else %}
+            <div class="result negative">Sağlıklı Görünüyorsunuz</div>
+        {% endif %}
+        
+        <!-- Scatter Plot -->
+        <h3>Veri Setindeki Konumunuz</h3>
+        <img src="{{ plot_path }}" alt="Scatter Plot" class="scatter-plot">
+
+        <a href="/" class="back-link">Ana Sayfaya Dön</a>
+    </div>
+</body>
+</html>

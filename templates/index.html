@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Diabetes Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Diyabet Tahmin Formu</h2>
+        <form action="/" name="send_data" method="post">
+            <div class="form-group">
+                <label for="Pregnancies">Hamilelikler</label>
+                <input type="text" id="Pregnancies" name="Pregnancies" placeholder="Enter your pregnancy count">
+            </div>
+            <div class="form-group">
+                <label for="Glucose">Glukoz</label>
+                <input type="text" id="Glucose" name="Glucose" placeholder="Enter your glucose level">
+            </div>
+            <div class="form-group">
+                <label for="BloodPressure">Kan Basıncı</label>
+                <input type="text" id="BloodPressure" name="BloodPressure" placeholder="Enter your blood pressure">
+            </div>
+            <div class="form-group">
+                <label for="SkinThickness">Deri Kalınlığı</label>
+                <input type="text" id="SkinThickness" name="SkinThickness" placeholder="Enter your skin thickness">
+            </div>
+            <div class="form-group">
+                <label for="Insulin">İnsülin</label>
+                <input type="text" id="Insulin" name="Insulin" placeholder="Enter your insulin level">
+            </div>
+            <div class="form-group">
+                <label for="BMI">Vücut Kitle İndeksi</label>
+                <input type="text" id="BMI" name="BMI" placeholder="Enter your BMI">
+            </div>
+            <div class="form-group">
+                <label for="DiabetesPedigreeFunction">Diyabet Soyağacı Fonksiyonu</label>
+                <input type="text" id="DiabetesPedigreeFunction" name="DiabetesPedigreeFunction" placeholder="Enter the function value">
+            </div>
+            <div class="form-group">
+                <label for="Age">Yaş</label>
+                <input type="text" id="Age" name="Age" placeholder="Enter your age">
+            </div>
+            <div class="form-group">
+                <label for="model">Model Seç</label>
+                <select id="model" name="model">
+                    <option value="KNN">KNN</option>
+                    <option value="SVC">SVC</option>
+                    <option value="Random Forest">Random Forest</option>
+                </select>
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
