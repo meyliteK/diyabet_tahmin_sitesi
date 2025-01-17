@@ -6,20 +6,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# ------------------------------------------------------------------------
-# Flask uygulaması, templates ve static klasörleri bir üst dizinde olduğu 
-# için template_folder ve static_folder parametrelerini belirtiyoruz.
-# ------------------------------------------------------------------------
+# Proje pkl dosyalarına path yoluyla erişme
 app = Flask(__name__,
             template_folder="../templates",
             static_folder="../static")
 
-# ------------------------------------------------------------------------
-# Model ve veri dosyalarının konumlarını tanımla:
-# (Bu kodun çalışacağı dizin: project_files)
-# ------------------------------------------------------------------------
-# Şu an "project_files" klasöründeyiz. model_files ise bir üst dizinde.
-# Dolayısıyla pkl dosyalarına "../model_files/..." şeklinde erişiyoruz.
+
 knn_path = "../model_files/knn_model.pkl"
 svc_path = "../model_files/svc_model.pkl"
 rf_path  = "../model_files/rf_model.pkl"
@@ -28,12 +20,12 @@ scaler_path = "../model_files/scaler.pkl"
 # diabetes.csv ise bu dosyanın bulunduğu (project_files) klasörde.
 csv_path = "diabetes.csv"
 
-# Oluşturulan scatter plot’u kaydedeceğimiz yer: ../static/scatter_plot.png
+# Oluşturulan scatter plot’u kaydettiğimiz yer.
 plot_path = "../static/scatter_plot.png"
 
-# ------------------------------------------------------------------------
-# Modelleri ve scaler'ı yükleme
-# ------------------------------------------------------------------------
+
+# -------------------------Modelleri ve scaler'ı yükleme-------------------------
+
 with open(knn_path, "rb") as file:
     knn_model = pickle.load(file)
 
@@ -46,9 +38,9 @@ with open(rf_path, "rb") as file:
 with open(scaler_path, "rb") as file:
     scaler = pickle.load(file)
 
-# ------------------------------------------------------------------------
-# Veri setini yükleme (scatter plot için gerekli)
-# ------------------------------------------------------------------------
+
+# -------------------------Veri setini yükleme (scatter plot için gerekli)-------------------------
+
 dataset = pd.read_csv(csv_path)
 
 # Veri düzenleme (scatter plot için preprocessing)
@@ -58,18 +50,18 @@ for sutun in sifir:
     mean = dataset[sutun].mean(skipna=True)
     dataset[sutun] = dataset[sutun].fillna(mean)
 
-# ------------------------------------------------------------------------
-# Modelleri bir sözlükte topluyoruz
-# ------------------------------------------------------------------------
+
+# -------------------------Modelleri bir sözlükte topluyoruz-------------------------
+
 models = {
     "KNN": knn_model,
     "SVC": svc_model,
     "Random Forest": rf_model
 }
 
-# ------------------------------------------------------------------------
-# Anasayfa route'u (index.html)
-# ------------------------------------------------------------------------
+
+# -------------------------Anasayfa route'u (index.html)-------------------------
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -143,20 +135,16 @@ def index():
             return render_template('result.html',
                                    is_diabetic=is_diabetic,
                                    model=selected_model,
-                                   plot_path="static/scatter_plot.png")
-            # DİKKAT: HTML'de resmi göstermek için genelde 'static/scatter_plot.png'
-            # gibi bir URL kullanılır. O nedenle return'de "../" kullanmıyoruz.
-
-        except Exception as e:
-            # Hata durumunda kullanıcıya geri dön
+                                   plot_path="static/scatter_plot.png")           
+        # Hata olması durumunda döndür
+        except Exception as e:            
             return render_template('index.html', error=f"Girdi hatası: {str(e)}")
 
     return render_template('index.html')
 
-# ------------------------------------------------------------------------
-# Uygulama başlatma
-# ------------------------------------------------------------------------
-if __name__ == '__main__':
-    # Flask varsayılan olarak 5000 portunu kullanır
+
+# -------------------------Uygulama başlatma-------------------------
+
+if __name__ == '__main__':  
     app.run(debug=True)
 
